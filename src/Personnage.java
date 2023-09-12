@@ -2,7 +2,7 @@
 
 public class Personnage {
     private String nom;
-    private int type;
+    private String type;
     private int niveauDeVie;
     private int Forcedattaque;
     private String EquipementOffensif;
@@ -24,7 +24,7 @@ public class Personnage {
         this.EquipementDefensif = "Bouclier";
     }
 
-    public Personnage(String nom, int type) {
+    public Personnage(String nom, String type) {
         this.nom = nom;
         this.type = type;
         this.niveauDeVie = 12;

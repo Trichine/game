@@ -3,6 +3,6 @@ public class Main {
         Menu menu = new Menu();
         System.out.println("Bienvenue dans le jeu !");
         menu.afficherMenu();
-        menu.optionCreePers();
+
     }
 }
