@@ -21,7 +21,8 @@ public class Menu {
         return scanner.next();
     }
 
-    public void optionCreePers() {
+    public  Personnage optionCreePers( ) {
+
         scanner.nextLine();
         System.out.println("Entrez le nouveau nom du personnage : ");
         String nom = scanner.nextLine();
@@ -32,6 +33,32 @@ public class Menu {
 
         Personnage nouveauPersonnage = new Personnage(nom, type);
         System.out.println("Votre personnage est : " + nouveauPersonnage.getNom() + "\n de type " + nouveauPersonnage.getType() + "\n de niveau de vie : " + nouveauPersonnage.getNiveauDeVie() + "\n avec une force magique : de " + nouveauPersonnage.getForcedattaque() + "\n il porte un equipment Offensif : " + nouveauPersonnage.getEquipementOffensif() + "\n et un equipment Defensive : " + nouveauPersonnage.getEquipementDefensif());
+return
+        nouveauPersonnage;
+
+
+    }
+    public void optionModifierPers(){
+        System.out.println("vous etes sur ? (O/N)");
+        String choix = scanner.nextLine();
+        if (choix.equalsIgnoreCase("O")) {
+            Personnage nouveauPersonnage = optionCreePers( );
+            System.out.println("confirme ? (O/N)");
+            String choix2 = scanner.nextLine();
+            if (choix.equalsIgnoreCase("O"))
+            { demarrerPartie();
+
+
+            }else {
+
+
+                optionModifierPers();}
+
+        } else {
+            afficherMenu();
+        }
+
+
     }
 
     Plateau plateau = new Plateau();
@@ -59,10 +86,19 @@ public class Menu {
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n3 commencer le jeux  \n4 Quite le menus");
         switch (create) {
             case 1: {
-                System.out.println("1.Vous avez chois l'Option 1");
-                optionCreePers();
-                demarrerPartie();
-                afficherMenu();
+                System.out.println("1.Vous avez chois l'Option 1 cree une nouvelle personnage");
+                Personnage nouveauPersonnage = optionCreePers();
+                System.out.println("Voulez-vous modifier le Personnage ? (O/N)");
+                String choix = scanner.nextLine();
+                if (choix.equalsIgnoreCase("O")) {
+                    optionModifierPers();
+                    demarrerPartie();
+                } else {
+                    demarrerPartie();
+                    afficherMenu();
+                }
+
+
 
                 break;
             }
@@ -78,6 +114,8 @@ public class Menu {
                 demarrerPartie();
                 afficherMenu();
             }
+            break;
+
             case 4: {
                 System.out.println("4. A bientôt");
             }
