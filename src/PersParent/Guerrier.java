@@ -1,7 +1,7 @@
 package PersParent;
 
 public class Guerrier extends Personnage {
-    public Guerrier(){
+    public Guerrier(String nom){
         super("Abou","guerrier",6,6);
     }
 

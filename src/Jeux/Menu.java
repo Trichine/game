@@ -5,11 +5,6 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
 
-    private String getStringResult(String question) {
-
-        return getStringResult(question);
-    }
-
     public int getIntResult(String question) {
         try {
             return Integer.parseInt(getResult(question));
@@ -24,14 +19,24 @@ public class Menu {
     }
 
     public void optionCreePers() {
-        System.out.println("choisir un type de personnage pour guerrier taper 1 pour magicien taper 2 ? (O/N)");
-        String choix = scanner.nextLine();
-        if (choix.equalsIgnoreCase("O")) {
-            creationGuerrier();
+        String choix;
+        do {
+            System.out.println("Choisissez un type de personnage :");
+            System.out.println("1. Guerrier");
+            System.out.println("2. Magicien");
+            choix = scanner.nextLine();
+        } while (!choix.equals("1") && !choix.equals("2"));
 
-        }if(choix.equalsIgnoreCase("N")) creationMagicien();
+        if (choix.equals("1")) {
+            Guerrier guerrier = creationGuerrier();
+            optionModifierPers(guerrier);
+        } else {
+            Magicien magicien = creationMagicien();
+            optionModifierPers(magicien);
         }
-        // Un menu demandant à l'utilisateur de choisir un type de personnage (guerrier ou mage)
+    }
+
+    // Un menu demandant à l'utilisateur de choisir un type de personnage (guerrier ou mage)
         // Suivant le choix instancier l'objet correspond au choix example choix 1 = Guerrier guerrier = new Guerrier ce qui instanciera un objet avec des valeurs par défaut
         // Une fois l'objet instancier appel à la fonction montrant le menu avec l'option de modification du personnage courant
         // optionModifierPers(guerrier)
@@ -43,13 +48,22 @@ public class Menu {
 
 
     public Guerrier creationGuerrier(){
-      return new Guerrier();
-        // Menu demandant a l'utilisateur si il veux modifier ou non le perso instancier par défaut
-//        optionModifierPers(guerrier);
 
+        System.out.println("Création d'un Guerrier");
+        System.out.println("Entrez le nom du Guerrier : ");
+        String nom = scanner.nextLine();
+        Guerrier guerrier = new Guerrier(nom);
+        optionModifierPers(guerrier);
+
+        return guerrier;
     }
     public Magicien creationMagicien(){
-        return new Magicien();
+        System.out.println("Création d'un Magicien");
+        System.out.println("Entrez le nom du Magicien : ");
+        String nom = scanner.nextLine();
+        Magicien magicien = new Magicien(nom);
+        optionModifierPers(magicien);
+        return magicien;
     }
     public Personnage modifPersonnage(Personnage current){
         scanner.nextLine();
@@ -61,7 +75,7 @@ public class Menu {
         String test1 = scanner.nextLine();
         current.setEquipementDefensif(test1);
 
-        System.out.println("Votre personnage est : " + nom + "\n de type " + current.getType() + "\n de niveau de vie : " + current.getNiveauDeVie() + "\n avec une force magique : de " + current.getForcedattaque() + "\n il porte un equipment Offensif : " + current.getEquipementDefensif() + "\n et un equipment Defensive : " + current.getEquipementDefensif());
+        System.out.println("Votre personnage est : " + nom + "\n de type " + current.getType() + "\n de niveau de vie : " + current.getNiveauDeVie() + "\n avec une force magique : de " + current.getForcedattaque() + "\n il porte un equipment Offensif : " + current.getEquipementDefensif() + "\n et un equipment Defensive : " + current.getEquipementOffensif());
         return current;
     }
     public void optionModifierPers(Personnage current) {
