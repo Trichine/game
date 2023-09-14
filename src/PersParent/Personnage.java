@@ -1,6 +1,8 @@
+package PersParent;
 
+import Equipement.EquipementOffensif.Arme;
 
-public class Personnage {
+public abstract class Personnage {
     private String nom;
     private String type;
     private int niveauDeVie;
@@ -8,29 +10,12 @@ public class Personnage {
     private String EquipementOffensif;
     private String EquipementDefensif;
 
-    public Personnage() {
-        this.nom = "ABOU";
-        this.niveauDeVie = 15;
-        this.Forcedattaque = 25;
-        this.EquipementOffensif = "arme";
-        this.EquipementDefensif = "Bouclier";
-    }
 
-    public Personnage(String nom) {
-        this.nom = nom;
-        this.niveauDeVie = 7;
-        this.Forcedattaque = 9;
-        this.EquipementOffensif = "Epee";
-        this.EquipementDefensif = "Bouclier";
-    }
-
-    public Personnage(String nom, String type) {
+    public Personnage(String nom, String type, int niveauDeVie, int forcedattaque){
         this.nom = nom;
         this.type = type;
-        this.niveauDeVie = 12;
-        this.Forcedattaque = 13;
-        this.EquipementOffensif = "Epee";
-        this.EquipementDefensif = "Bouclier";
+        this.niveauDeVie = niveauDeVie;
+        this.Forcedattaque = forcedattaque;
     }
 
     public String getNom() {
@@ -80,4 +65,8 @@ public class Personnage {
     public void setEquipementDefensif(String equipementDefensif) {
         EquipementDefensif = equipementDefensif;
     }
+    public abstract String toString();
+
+//    System.out.println(thor.toString());
+
 }

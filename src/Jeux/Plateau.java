@@ -1,3 +1,5 @@
+package Jeux;
+import PersParent.*;
 public class Plateau {
     private int position = 1;
 
