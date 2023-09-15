@@ -2,11 +2,13 @@ package PersParent;
 
 public class Magicien extends Personnage {
     public Magicien(String nom) {
-        super(nom, "magicien", 6, 6);
+        super(nom, "magicien", 6, 6,"zozo","kaka");
     }
 
     @Override
     public String toString() {
-        return "Nom : " + getNom() + ", Type : " + getType() + ", Niveau de vie : " + getNiveauDeVie() + ", Force : " + getForcedattaque();
+        return "Nom : " + getNom() + ", Type : " + getType() + ", Niveau de vie : "
+                + getNiveauDeVie() + ", Force : " + getForcedattaque() +
+                "equipement offensif"+getEquipementOffensif() +"equipement deffensif"+ getEquipementDefensif();
     }
 }

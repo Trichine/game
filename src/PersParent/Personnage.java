@@ -1,7 +1,5 @@
 package PersParent;
 
-import Equipement.EquipementOffensif.Arme;
-
 public abstract class Personnage {
     private String nom;
     private String type;
@@ -11,11 +9,13 @@ public abstract class Personnage {
     private String EquipementDefensif;
 
 
-    public Personnage(String nom, String type, int niveauDeVie, int forcedattaque){
+    public Personnage(String nom, String type, int niveauDeVie, int forcedattaque,String EquipementOffensif,String EquipementDefensif){
         this.nom = nom;
         this.type = type;
         this.niveauDeVie = niveauDeVie;
         this.Forcedattaque = forcedattaque;
+        this.EquipementDefensif = EquipementOffensif;
+        this.EquipementOffensif = EquipementDefensif;
     }
 
     public String getNom() {

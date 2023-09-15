@@ -1,7 +1,7 @@
 package Jeux;
-import PersParent.*;
-public class Plateau {
-    private int position = 1;
+
+public class Plateau{
+    public int position = 1;
 
     public void lancerDe() {
         int de = (int) (Math.random() * 6) + 1;
@@ -16,6 +16,8 @@ public class Plateau {
         }
         System.out.println("BRAVO VOUS AVENCEZ SUR :LA  case " + position + " / 64");
     }
+
+//try
 
     public int getPosition() {
         return position;
