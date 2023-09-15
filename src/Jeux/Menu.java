@@ -79,11 +79,12 @@ public class Menu {
             afficherMenu();
         }
     }
-    Plateau plateau = new Plateau();
+
 
     // ...
 
     public void demarrerPartie() {
+        Plateau plateau = new Plateau();
         System.out.println("Démarrer la partie !");
         while (plateau.getPosition() < 64) {
             System.out.println("Appuyez sur Entrée pour lancer le dé.");
