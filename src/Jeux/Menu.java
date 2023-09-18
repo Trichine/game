@@ -1,6 +1,7 @@
 package Jeux;
 
 import PersParent.*;
+import Cases.*;
 import java.util.Scanner;
 
 public class Menu {
@@ -74,6 +75,7 @@ public class Menu {
                 System.out.println("La partie commence !!!");
                 System.out.println("Votre personnage est : " + current.getNom() + "\n de type " + current.getType() + "\n de niveau de vie : " + current.getNiveauDeVie() + "\n avec une force magique : de " + current.getForcedattaque() + "\n il porte un equipment Offensif : " + current.getEquipementDefensif() + "\n et un equipment Defensive : " + current.getEquipementOffensif());
                 demarrerPartie();
+
             }
         } else {
             afficherMenu();
@@ -85,6 +87,12 @@ public class Menu {
 
     public void demarrerPartie() {
         Plateau plateau = new Plateau();
+        PlateauEvenements plateauEvenement = new PlateauEvenements();
+
+        for (int i = 0; i < 3; i++) {
+            plateauEvenement.deplacerPersonnage(plateau.position);
+        }
+
         System.out.println("Démarrer la partie !");
         while (plateau.getPosition() < 64) {
             System.out.println("Appuyez sur Entrée pour lancer le dé.");

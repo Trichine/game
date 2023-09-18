@@ -6,5 +6,6 @@ public class Main {
         System.out.println("Bienvenue dans le jeu !");
         menu.afficherMenu();
 
+
     }
 }

@@ -1,10 +1,12 @@
 package Jeux;
-
+import java.util.ArrayList;
+import Cases.*;
 public class Plateau {
-    public int[] position = new int[1];
+    ArrayList<Integer> position= new ArrayList<Integer>();
+
 
     public Plateau() {
-        position[0] = 0;
+        position.add(0);
     }
 
     public void lancerDe() {
@@ -13,16 +15,21 @@ public class Plateau {
     }
 
     public void avancer(int cases) {
-        position[0] += cases;
-        if (position[0] >= 64) {
+        int newPosition = position.get(position.size() - 1) + cases;
+        if (newPosition >= 64) {
             System.out.println("FÉLICITATIONS, VOUS AVEZ GAGNÉ.");
-            position[0] = 64;
+
+            newPosition = 64;
+
+
+
         }
-        System.out.println("BRAVO, VOUS AVANCEZ SUR LA CASE " + position[0] + " / 64");
+        position.add(newPosition);
+        System.out.println("BRAVO, VOUS AVANCEZ SUR LA CASE " + newPosition + " / 64");
     }
 
-    public int getPosition() {
-        return position[0];
+    public int getPosition(){
+    return  position.get(position.size() - 1);
     }
 
 
