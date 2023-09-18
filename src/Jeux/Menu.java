@@ -86,29 +86,32 @@ public class Menu {
     // ...
 
     public void demarrerPartie() {
-        Plateau plateau = new Plateau();
         PlateauEvenements plateauEvenement = new PlateauEvenements();
+        Plateau plateau = new Plateau();
 
-        for (int i = 0; i < 3; i++) {
+
+        for (int i = 0; i < 1; i++) {
             plateauEvenement.deplacerPersonnage(plateau.position);
-        }
+            plateau.position.add(1);
 
-        System.out.println("Démarrer la partie !");
-        while (plateau.getPosition() < 64) {
-            System.out.println("Appuyez sur Entrée pour lancer le dé.");
-            scanner.nextLine();
-            plateau.lancerDe();
 
         }
-        System.out.println("Voulez-vous recommencer une partie ? (O/N)");
-        String choix = scanner.nextLine();
-        if (choix.equalsIgnoreCase("O")) {
-            plateau.avancer(-plateau.getPosition() + 1);
+            System.out.println("Démarrer la partie !");
+            while (plateau.getPosition() < 64) {
+                System.out.println("Appuyez sur Entrée pour lancer le dé.");
+                scanner.nextLine();
+                plateau.lancerDe();
 
-        } else {
-            System.out.println("Merci d'avoir joué !");
+            }
+            System.out.println("Voulez-vous recommencer une partie ? (O/N)");
+            String choix = scanner.nextLine();
+            if (choix.equalsIgnoreCase("O")) {
+                plateau.avancer(-plateau.getPosition() + 1);
+
+            } else {
+                System.out.println("Merci d'avoir joué !");
+            }
         }
-    }
 
     public void afficherMenu() {
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n4 Quitter le jeux");
