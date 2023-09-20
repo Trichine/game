@@ -10,5 +10,9 @@ public class Ennemi implements Case {
     public void action() {
         System.out.println("Vous avez rencontré un ennemi !" + nom);
     }
+
+    public String toString(){
+        return "Vous êtes sur une case ennemi qui est -> "+ nom;
+    }
 }
 

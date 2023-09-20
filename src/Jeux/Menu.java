@@ -2,6 +2,7 @@ package Jeux;
 
 import PersParent.*;
 import Cases.*;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -19,7 +20,9 @@ public class Menu {
         System.out.println(question);
         return scanner.next();
     }
+
     String choix;
+
     public void optionCreePers() {
 
         do {
@@ -31,37 +34,43 @@ public class Menu {
             Guerrier guerrier = creationGuerrier();
             optionModifierPers(guerrier);
         }
-        if (choix.equals("2")){
+        if (choix.equals("2")) {
             Magicien magicien = creationMagicien();
             optionModifierPers(magicien);
         }
     }
 
-    public Guerrier creationGuerrier(){
-
+    public Guerrier creationGuerrier() {
+        System.out.println(" =======================================");
         System.out.println("Création d'un Guerrier");
         System.out.println("Entrez le nom du Guerrier : ");
+        System.out.println(" =======================================");
         String nom = scanner.nextLine();
         Guerrier guerrier = new Guerrier(nom);
         optionModifierPers(guerrier);
 
         return guerrier;
     }
-    public Magicien creationMagicien(){
+
+    public Magicien creationMagicien() {
+        System.out.println(" =======================================");
         System.out.println("Création d'un Magicien");
         System.out.println("Entrez le nom du Magicien : ");
+        System.out.println(" =======================================");
         String nom = scanner.nextLine();
         Magicien magicien = new Magicien(nom);
         optionModifierPers(magicien);
         return magicien;
     }
-    public Personnage modifPersonnage(Personnage current){
+
+    public Personnage modifPersonnage(Personnage current) {
         scanner.nextLine();
         System.out.println("Entrez le nouveau nom du personnage : ");
         String nom = scanner.nextLine();
         current.setNom(nom);
         return current;
     }
+
     public void optionModifierPers(Personnage current) {
         System.out.println("vous etes sur ? (O/N)");
         String choix = scanner.nextLine();
@@ -72,9 +81,11 @@ public class Menu {
                 modifPersonnage(current);
             }
             if (choix2.equalsIgnoreCase("N")) {
+                System.out.println(" =======================================");
                 System.out.println("La partie commence !!!");
                 System.out.println("Votre personnage est : " + current.getNom() + "\n de type " + current.getType() + "\n de niveau de vie : " + current.getNiveauDeVie() + "\n avec une force magique : de " + current.getForcedattaque() + "\n il porte un equipment Offensif : " + current.getEquipementDefensif() + "\n et un equipment Defensive : " + current.getEquipementOffensif());
-                demarrerPartie();
+
+                demarrerPartie(current);
 
             }
         } else {
@@ -82,64 +93,51 @@ public class Menu {
         }
     }
 
+    public void demarrerPartie(Personnage current) {
 
-    // ...
-
-    public void demarrerPartie() {
-        PlateauEvenements plateauEvenement = new PlateauEvenements();
-        Plateau plateau = new Plateau();
+        Game game = new Game();
+        game.play(current);
 
 
-        for (int i = 0; i < 1; i++) {
-            plateauEvenement.deplacerPersonnage(plateau.position);
-            plateau.position.add(1);
 
-
-        }
-            System.out.println("Démarrer la partie !");
-            while (plateau.getPosition() < 64) {
-                System.out.println("Appuyez sur Entrée pour lancer le dé.");
-                scanner.nextLine();
-                plateau.lancerDe();
-
-            }
-            System.out.println("Voulez-vous recommencer une partie ? (O/N)");
-            String choix = scanner.nextLine();
-            if (choix.equalsIgnoreCase("O")) {
-                plateau.avancer(-plateau.getPosition() + 1);
-
-            } else {
-                System.out.println("Merci d'avoir joué !");
-            }
-        }
-
+    }
     public void afficherMenu() {
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n4 Quitter le jeux");
         switch (create) {
             case 1 -> {
+                System.out.println(" =======================================");
                 System.out.println("1.Vous avez chois l'Option 1 cree une nouvelle personnage");
                 System.out.println("Choisissez un type de personnage :");
                 System.out.println("1. Guerrier");
                 System.out.println("2. Magicien");
+                System.out.println(" =======================================");
                 optionCreePers();
                 System.out.println("Voulez-vous modifier votre personnage ? (O/N)");
                 String choix = scanner.nextLine();
                 if (choix.equalsIgnoreCase("O")) {
                     //demarrerPartie();
                     afficherMenu();
+                    break;
                 }
             }
             case 2 -> {
-                System.out.println("2. Vous avez chois l'Option 2 la liste des personages elle est pas configure choisissez l option 1 pour cree votre personnage");
+                System.out.println("2. Vous avez chois l'Option *** 2 *** la liste des personages elle est pas configure choisissez l option 1 pour cree votre personnage");
                 afficherMenu();
+                break;
             }
             case 3 -> {
                 System.out.println("Go go go");
                 demarrerPartie();
                 afficherMenu();
+                break;
             }
             case 4 -> {
                 System.out.println("4. A bientôt");
+                break;
+            }
+            default -> {
+                System.out.println("Choix incorrect");
+                break;
             }
         }
     }
