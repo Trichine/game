@@ -1,13 +1,12 @@
 package Jeux;
 
 import PersParent.*;
-import Cases.*;
 
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
-
+    private Personnage current;
     public int getIntResult(String question) {
         try {
             return Integer.parseInt(getResult(question));
@@ -97,23 +96,21 @@ public class Menu {
 
         Game game = new Game();
         game.play(current);
-
-
+        return;
 
     }
     public void afficherMenu() {
+        System.out.println("Bienvenue dans le jeu !");
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n4 Quitter le jeux");
-        switch (create) {
-            case 1 -> {
-                System.out.println(" =======================================");
-                System.out.println("1.Vous avez chois l'Option 1 cree une nouvelle personnage");
-                System.out.println("Choisissez un type de personnage :");
-                System.out.println("1. Guerrier");
-                System.out.println("2. Magicien");
-                System.out.println(" =======================================");
-                optionCreePers();
-                System.out.println("Voulez-vous modifier votre personnage ? (O/N)");
-                String choix = scanner.nextLine();
+            switch (create) {
+                case 1 -> {
+                    System.out.println(" =======================================");System.out.println("1.Vous avez chois l'Option 1 cree une nouvelle personnage");System.out.println("Choisissez un type de personnage :");
+                    System.out.println("1. Guerrier");
+                    System.out.println("2. Magicien");
+                    System.out.println(" =======================================");
+                        optionCreePers();
+                    System.out.println("Voulez-vous modifier votre personnage ? (O/N)");
+                    String choix = scanner.nextLine();
                 if (choix.equalsIgnoreCase("O")) {
                     //demarrerPartie();
                     afficherMenu();
@@ -122,12 +119,12 @@ public class Menu {
             }
             case 2 -> {
                 System.out.println("2. Vous avez chois l'Option *** 2 *** la liste des personages elle est pas configure choisissez l option 1 pour cree votre personnage");
-                afficherMenu();
+                    afficherMenu();
                 break;
             }
             case 3 -> {
                 System.out.println("Go go go");
-                demarrerPartie();
+                    demarrerPartie(current);
                 afficherMenu();
                 break;
             }
@@ -141,6 +138,8 @@ public class Menu {
             }
         }
     }
+
+
 }
 
 
