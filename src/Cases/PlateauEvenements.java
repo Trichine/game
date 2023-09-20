@@ -78,4 +78,10 @@ public class PlateauEvenements {
     public int getPositionEvenement() {
         return positionEvenement;
     }
-}
+    public Case getCaseAt(int position) {
+        if (position >= 0 && position < evenements.size()) {
+            return evenements.get(position);
+        }
+        return null; //  invalide
+
+    }}

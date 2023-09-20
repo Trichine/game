@@ -2,7 +2,7 @@ package Jeux;
 
 import Cases.PlateauEvenements;
 import PersParent.Personnage;
-
+import Cases.*;
 import java.util.Scanner;
 
 public class Game {
@@ -50,6 +50,15 @@ public class Game {
                     System.out.println("Vous avez gagné");
                     new Menu().afficherMenu();
                 }
+            }
+            if (current.getNiveauDeVie() <= 0) {
+                System.out.println("Votre personnage est mort !");
+                new Menu().afficherMenu();
+            }
+            System.out.println("Niveau de vie : " + current.getNiveauDeVie());
+            Case evenement = plateau.getCaseAt(positionPlayer);
+            if (evenement != null) {
+                evenement.action();
             }
 
             // Faire une condition que si les points de vie du personnage sont égale ou inférieur à 0
