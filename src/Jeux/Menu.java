@@ -1,5 +1,6 @@
 package Jeux;
 
+import Cases.PersonnageMortException;
 import PersParent.*;
 
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class Menu {
 
     String choix;
 
-    public void optionCreePers() {
+    public void optionCreePers() throws PersonnageMortException {
 
         do {
 
@@ -39,7 +40,7 @@ public class Menu {
         }
     }
 
-    public Guerrier creationGuerrier() {
+    public Guerrier creationGuerrier() throws PersonnageMortException {
         System.out.println(" =======================================");
         System.out.println("Création d'un Guerrier");
         System.out.println("Entrez le nom du Guerrier : ");
@@ -51,7 +52,7 @@ public class Menu {
         return guerrier;
     }
 
-    public Magicien creationMagicien() {
+    public Magicien creationMagicien() throws PersonnageMortException {
         System.out.println(" =======================================");
         System.out.println("Création d'un Magicien");
         System.out.println("Entrez le nom du Magicien : ");
@@ -70,7 +71,7 @@ public class Menu {
         return current;
     }
 
-    public void optionModifierPers(Personnage current) {
+    public void optionModifierPers(Personnage current) throws PersonnageMortException {
         System.out.println("vous etes sur ? (O/N)");
         String choix = scanner.nextLine();
         if (choix.equalsIgnoreCase("O")) {
@@ -92,14 +93,23 @@ public class Menu {
         }
     }
 
-    public void demarrerPartie(Personnage current) {
+    public void demarrerPartie(Personnage current) throws PersonnageMortException {
 
         Game game = new Game();
         game.play(current);
         return;
 
     }
-    public void afficherMenu() {
+//    public void menuDeCombat(){
+//        System.out.println("Vous rencontre un evenement dans votre chemain vous voulez fuire ou combatre : \n1 oui \n2");
+//        int responseCombat = scanner.nextInt();
+//        switch (responseCombat){
+//            case 1 -> System.out.println("Tu rentre en combat " + current.getNom() +" contre " + ennemi.getNom() );
+//            timeToFigh();
+//            case 2 -> new Menu();
+//
+//    }
+    public void afficherMenu() throws PersonnageMortException {
         System.out.println("Bienvenue dans le jeu !");
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n4 Quitter le jeux");
             switch (create) {

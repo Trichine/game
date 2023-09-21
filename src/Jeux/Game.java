@@ -6,7 +6,6 @@ import Cases.*;
 import java.util.Scanner;
 
 public class Game {
-
     private final PlateauEvenements plateau;
     private final Scanner scanner;
 
@@ -15,7 +14,7 @@ public class Game {
         this.scanner = new Scanner(System.in);
     }
 
-    public void play(Personnage current){
+    public void play(Personnage current) throws PersonnageMortException {
         int positionPlayer = 0;
 
         while (positionPlayer < plateau.plateauSize()){
@@ -32,6 +31,7 @@ public class Game {
 
             boolean continu = false;
             System.out.println("Vous êtes sur la case : "+ positionPlayer + "/" + plateau.plateauSize());
+
 
             System.out.println("Voulez-vous jetez les dés ? \n1 Oui \n2 Abandonner et retourner au menu principal \n3 Quitter le jeu");
             int response = scanner.nextInt();
@@ -51,7 +51,31 @@ public class Game {
                     new Menu().afficherMenu();
                 }
             }
+
             if (current.getNiveauDeVie() <= 0) {
+                System.out.println("Votre personnage est mort !");
+                new Menu().afficherMenu();
+            }
+
+            // Condition si le current est sur une Case de type Ennemy
+            if (plateau.caseInfo(positionPlayer).contains("ennemi") ) {
+                plateau.timeToFight(positionPlayer, current);
+//                while(current.getNiveauDeVie() > 0) {
+//
+//                }
+            }
+//            System.out.println("Niveau de vie : " + current.getNiveauDeVie());
+//            Case evenement = plateau.getCaseAt(positionPlayer);
+//            if (evenement != null) {
+//                evenement.action();
+//            }
+
+            System.out.println(plateau.caseInfo(positionPlayer));
+        }
+    }
+}
+/*
+ if (current.getNiveauDeVie() <= 0) {
                 System.out.println("Votre personnage est mort !");
                 new Menu().afficherMenu();
             }
@@ -59,19 +83,5 @@ public class Game {
             Case evenement = plateau.getCaseAt(positionPlayer);
             if (evenement != null) {
                 evenement.action();
-            }
-
-            // Faire une condition que si les points de vie du personnage sont égale ou inférieur à 0
-            // afficher un message  à l'utilisateur Votre personnage est mort
-            // instancier un nouveau menu et sa methode afficherMenu pour retourner au menu principale
-
-            // Changer ceci après avec une exception personnalisée
-
-
-        }
-
-
-
-
-    }
-}
+            }}
+ */
