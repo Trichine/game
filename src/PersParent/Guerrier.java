@@ -2,7 +2,7 @@ package PersParent;
 
 public class Guerrier extends Personnage {
     public Guerrier(String nom){
-        super("Abou","guerrier",6,6,"couteaux","bouclier");
+        super("Abou","guerrier",25,6,"couteaux","bouclier");
     }
 
     @Override

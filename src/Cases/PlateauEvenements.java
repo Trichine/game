@@ -3,11 +3,12 @@ package Cases;
 import PersParent.Personnage;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PlateauEvenements {
     private final ArrayList<Case> evenements = new ArrayList<>();
     private int positionEvenement = 0;
-
+    private final Scanner scanner = new Scanner(System.in);
 
     public PlateauEvenements() {
         initPlateau();
@@ -58,32 +59,39 @@ public class PlateauEvenements {
         return evenements.get(i).toString();
     }
     public void timeToFight(int positionPlayer, Personnage current) throws PersonnageMortException {
-        if (evenements.get(positionPlayer) instanceof Ennemi ennemi){
-            while (current.getNiveauDeVie() >= 0) {
+        if (evenements.get(positionPlayer) instanceof Ennemi ennemi) {
+            while (current.getNiveauDeVie() > 0 && ennemi.getNiveaudeVie() > 0) {
                 System.out.println("Votre ennemi a : " + ennemi.getNiveaudeVie() + " en point(s) de vie");
                 System.out.println("Vous avez : " + current.getNiveauDeVie() + " en point(s) de vie");
-                if (current.getNiveauDeVie() > 0) {
-                    System.out.println("Vous frappez l'ennemi");
-                   current.setNiveauDeVie(ennemi.getNiveaudeVie() - current.getForcedattaque());
-                } else if (current.getNiveauDeVie() <= 0) {
-                    //Faire exception personnage mort
+
+                System.out.println("Vous frappez l'ennemi");
+                ennemi.setNiveaudeVie(ennemi.getNiveaudeVie() - current.getForcedattaque());
+
+                if (ennemi.getNiveaudeVie() <= 0) {
+                    System.out.println("Vous avez vaincu l'ennemi.");
+                    lancerDe();
+                    break;
+                }
+
+                System.out.println("L'ennemi vous frappe à son tour : ");
+                current.setNiveauDeVie(current.getNiveauDeVie() - ennemi.getNiveauDeForc());
+                System.out.println("Il vous reste " + current.getNiveauDeVie() + " point(s) de vie");
+
+                if (current.getNiveauDeVie() <= 0) {
                     throw new PersonnageMortException("Vous êtes mort.");
                 }
-                if(ennemi.getNiveaudeVie() > 0) {
-                    ennemi.setAlive(true);
-                    if (ennemi.isAlive()){
-                        System.out.println("L'ennemi a maintenant : " + ennemi.getNiveaudeVie() + " point(s) de vie.");
-
-                        System.out.println("L'ennemi vous frappe à son tour : ");
-                        current.setNiveauDeVie(current.getNiveauDeVie() - ennemi.getNiveauDeForc());
-                        System.out.println("Il vous reste " + current.getNiveauDeVie() + " point(s) de vie");
-                    } else {
-                        System.out.println("Vous avez vaincus votre ennemi.");
-                    }
-                }
+            }
+        } else if (evenements.get(positionPlayer) instanceof Arme arme) {
+            System.out.println("Vous avez trouvé une arme : " + arme.getNom() + " avec une force de " + arme.getNiveauDeForc());
+            System.out.println("Voulez-vous prendre cette arme ? \n1 Oui \n2 Non");
+            int takeWeaponResponse = scanner.nextInt();
+            if (takeWeaponResponse == 1) {
+                System.out.println("Vous avez pris l'arme " + arme.getNom() + ".");
+                System.out.println("Votre nouveau niveau de vie est de : " + current.getNiveauDeVie());
             }
         }
     }
+
 
     public void avancer(int cases) {
         for (int i = 1; i < cases; i++) {
