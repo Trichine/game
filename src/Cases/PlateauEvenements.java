@@ -4,8 +4,6 @@ import PersParent.Personnage;
 
 import java.util.ArrayList;
 
-
-
 public class PlateauEvenements {
     private final ArrayList<Case> evenements = new ArrayList<>();
     private int positionEvenement = 0;
@@ -56,26 +54,21 @@ public class PlateauEvenements {
     public int lancerDe() {
         return ((int) (Math.random() * 6) + 1);
     }
-
     public String caseInfo(int i){
         return evenements.get(i).toString();
     }
-
     public void timeToFight(int positionPlayer, Personnage current) throws PersonnageMortException {
         if (evenements.get(positionPlayer) instanceof Ennemi ennemi){
             while (current.getNiveauDeVie() >= 0) {
                 System.out.println("Votre ennemi a : " + ennemi.getNiveaudeVie() + " en point(s) de vie");
                 System.out.println("Vous avez : " + current.getNiveauDeVie() + " en point(s) de vie");
-
                 if (current.getNiveauDeVie() > 0) {
                     System.out.println("Vous frappez l'ennemi");
                    current.setNiveauDeVie(ennemi.getNiveaudeVie() - current.getForcedattaque());
                 } else if (current.getNiveauDeVie() <= 0) {
                     //Faire exception personnage mort
                     throw new PersonnageMortException("Vous êtes mort.");
-
                 }
-
                 if(ennemi.getNiveaudeVie() > 0) {
                     ennemi.setAlive(true);
                     if (ennemi.isAlive()){
@@ -88,10 +81,7 @@ public class PlateauEvenements {
                         System.out.println("Vous avez vaincus votre ennemi.");
                     }
                 }
-
-
             }
-//            System.out.println("FAIRE MENU COMBAT");
         }
     }
 
@@ -99,11 +89,6 @@ public class PlateauEvenements {
         for (int i = 1; i < cases; i++) {
             evenements.add(new EmptyCase());
             System.out.println("Liste vide");
- //            positionEvenement = positionEvenement.get(positionEvenement.size() - 1) + cases;
- //           if (positionEvenement >= evenements.size()) {
- //               positionEvenement = evenements.size() - 1;
-
-   //         }
         }
         System.out.println("vous-étes dans la case : " + cases);
         action();
@@ -122,4 +107,5 @@ public class PlateauEvenements {
         }
         return null; //  invalide
 
-    }}
+    }
+}
