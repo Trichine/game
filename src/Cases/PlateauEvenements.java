@@ -2,7 +2,7 @@ package Cases;
 
 import Jeux.Game;
 import PersParent.Personnage;
-
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,13 +16,20 @@ public class PlateauEvenements {
         initPlateau();
         System.out.println(evenements);
     }
-
+    public void swap(){
+        for (int i=0;i<100;i++) {
+            int firstIndex = (int) ((Math.random() * 62) + 1);
+            int secondIndex = (int) ((Math.random() * 62) + 1);
+            Collections.swap(evenements, firstIndex, secondIndex);
+        }
+    }
     private void initPlateau(){
         for (int i = 0; i < 64; i++) {
             evenements.add(new EmptyCase());
         }
         ennemiEvent();
         armeEvent();
+        swap();
 
 
     }
@@ -87,7 +94,7 @@ public class PlateauEvenements {
                 }
 
                 if (current.getNiveauDeVie() <= 0) {
-                    throw new PersonnageMortException("Vous êtes mort.");
+                    throw new PersonnageMortException("message");
                 }
             }
         } else if (evenements.get(positionPlayer) instanceof Arme arme) {
