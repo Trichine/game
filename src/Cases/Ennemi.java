@@ -11,6 +11,9 @@ public class Ennemi implements Case {
         this.nom = nom;
         this.niveauDeForc = niveauDeForc;
     }
+    public Ennemi(){
+        nom = "abou";
+    }
     @Override
     public void action() {
         System.out.println("Vous avez rencontré un ennemi !" + nom + "avec un niveau de vie --> " + niveauDeForc);

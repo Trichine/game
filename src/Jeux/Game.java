@@ -37,14 +37,12 @@ public class Game {
                 if (positionPlayer >= plateau.plateauSize()) {
                     System.out.println("Vous avez gagné");
                     new Menu().afficherMenu();
-                    break;
                 }
             }
 
             if (current.getNiveauDeVie() <= 0) {
                 System.out.println("Votre personnage est mort !");
                 new Menu().afficherMenu();
-                break;
             }
 
             System.out.println(plateau.caseInfo(positionPlayer));
@@ -52,19 +50,13 @@ public class Game {
 
             if (plateau.caseInfo(positionPlayer).contains("ennemi")) {
                 System.out.println("Un ennemi apparaît !");
-                while (current.getNiveauDeVie() > 0) {
+//                while (current.getNiveauDeVie() > 0) {
                     plateau.timeToFight(positionPlayer, current);
-
-                    if (current.getNiveauDeVie() <= 0) {
-                        System.out.println("Vous avez vaincu l'ennemi !");
-                        break;
-                    }
-                }
+//                }
             } else if (plateau.caseInfo(positionPlayer).contains("arme")) {
 
                 Case currentCase = plateau.getCaseAt(positionPlayer);
                 if (currentCase instanceof Arme arme) {
-                    arme = (Arme) currentCase;
                     System.out.println("Vous avez trouvé une arme : " + arme.getNom() + " avec une force de " + arme.getNiveauDeForc());
                     System.out.println("Voulez-vous prendre cette arme ? \n1 Oui \n2 Non");
                     int takeWeaponResponse = scanner.nextInt();

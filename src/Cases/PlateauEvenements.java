@@ -1,5 +1,6 @@
 package Cases;
 
+import Jeux.Game;
 import PersParent.Personnage;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 public class PlateauEvenements {
     private final ArrayList<Case> evenements = new ArrayList<>();
     private int positionEvenement = 0;
+
     private final Scanner scanner = new Scanner(System.in);
 
     public PlateauEvenements() {
@@ -21,13 +23,18 @@ public class PlateauEvenements {
         }
         ennemiEvent();
         armeEvent();
+
+
     }
+
+
+
 
     public int plateauSize(){
         return evenements.size();
     }
-
-    private void ennemiEvent() {
+// mes evenement
+    private  void ennemiEvent() {
         evenements.set(2,new Ennemi("Olivier la mafia rebeu",1));
         evenements.set(4,new Ennemi("Ballas",2));
         evenements.set(6,new Ennemi("Los Santos Vagos",13));
@@ -58,9 +65,10 @@ public class PlateauEvenements {
     public String caseInfo(int i){
         return evenements.get(i).toString();
     }
+    //gestion de combat
     public void timeToFight(int positionPlayer, Personnage current) throws PersonnageMortException {
         if (evenements.get(positionPlayer) instanceof Ennemi ennemi) {
-            while (current.getNiveauDeVie() > 0 && ennemi.getNiveaudeVie() > 0) {
+            while (ennemi.getNiveaudeVie() > 0) {
                 System.out.println("Votre ennemi a : " + ennemi.getNiveaudeVie() + " en point(s) de vie");
                 System.out.println("Vous avez : " + current.getNiveauDeVie() + " en point(s) de vie");
 
@@ -68,14 +76,15 @@ public class PlateauEvenements {
                 ennemi.setNiveaudeVie(ennemi.getNiveaudeVie() - current.getForcedattaque());
 
                 if (ennemi.getNiveaudeVie() <= 0) {
+                    ennemi.setAlive(false);
                     System.out.println("Vous avez vaincu l'ennemi.");
-                    lancerDe();
-                    break;
                 }
 
-                System.out.println("L'ennemi vous frappe à son tour : ");
-                current.setNiveauDeVie(current.getNiveauDeVie() - ennemi.getNiveauDeForc());
-                System.out.println("Il vous reste " + current.getNiveauDeVie() + " point(s) de vie");
+                if (ennemi.isAlive()) {
+                    System.out.println("L'ennemi vous frappe à son tour : ");
+                    current.setNiveauDeVie(current.getNiveauDeVie() - ennemi.getNiveauDeForc());
+                    System.out.println("Il vous reste " + current.getNiveauDeVie() + " point(s) de vie");
+                }
 
                 if (current.getNiveauDeVie() <= 0) {
                     throw new PersonnageMortException("Vous êtes mort.");

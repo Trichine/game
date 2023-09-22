@@ -100,15 +100,7 @@ public class Menu {
         return;
 
     }
-//    public void menuDeCombat(){
-//        System.out.println("Vous rencontre un evenement dans votre chemain vous voulez fuire ou combatre : \n1 oui \n2");
-//        int responseCombat = scanner.nextInt();
-//        switch (responseCombat){
-//            case 1 -> System.out.println("Tu rentre en combat " + current.getNom() +" contre " + ennemi.getNom() );
-//            timeToFigh();
-//            case 2 -> new Menu();
-//
-//    }
+
     public void afficherMenu() throws PersonnageMortException {
         System.out.println("Bienvenue dans le jeu !");
         int create = getIntResult("Principal menu : \n1 cree une nouvelle personnage\n2 la liste des Personnage\n4 Quitter le jeux");
