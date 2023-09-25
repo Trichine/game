@@ -1,6 +1,4 @@
 package Cases;
-
-import Jeux.Game;
 import PersParent.Personnage;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -23,6 +21,10 @@ public class PlateauEvenements {
             Collections.swap(evenements, firstIndex, secondIndex);
         }
     }
+
+    /**
+     * le plateau avec les evenements
+     */
     private void initPlateau(){
         for (int i = 0; i < 64; i++) {
             evenements.add(new EmptyCase());
@@ -30,17 +32,16 @@ public class PlateauEvenements {
         ennemiEvent();
         armeEvent();
         swap();
-
-
     }
 
-
-
-
+    /**
+     *
+     * @return la taill demon plateau
+     */
     public int plateauSize(){
         return evenements.size();
     }
-// mes evenement
+// mes evenements
     private  void ennemiEvent() {
         evenements.set(2,new Ennemi("Olivier la mafia rebeu",1));
         evenements.set(4,new Ennemi("Ballas",2));
@@ -73,59 +74,39 @@ public class PlateauEvenements {
         return evenements.get(i).toString();
     }
     //gestion de combat
-    public void timeToFight(int positionPlayer, Personnage current) throws PersonnageMortException {
-        if (evenements.get(positionPlayer) instanceof Ennemi ennemi) {
-            while (ennemi.getNiveaudeVie() > 0) {
-                System.out.println("Votre ennemi a : " + ennemi.getNiveaudeVie() + " en point(s) de vie");
-                System.out.println("Vous avez : " + current.getNiveauDeVie() + " en point(s) de vie");
-
-                System.out.println("Vous frappez l'ennemi");
-                ennemi.setNiveaudeVie(ennemi.getNiveaudeVie() - current.getForcedattaque());
-
-                if (ennemi.getNiveaudeVie() <= 0) {
-                    ennemi.setAlive(false);
-                    System.out.println("Vous avez vaincu l'ennemi.");
-                }
-
-                if (ennemi.isAlive()) {
-                    System.out.println("L'ennemi vous frappe à son tour : ");
-                    current.setNiveauDeVie(current.getNiveauDeVie() - ennemi.getNiveauDeForc());
-                    System.out.println("Il vous reste " + current.getNiveauDeVie() + " point(s) de vie");
-                }
-
-                if (current.getNiveauDeVie() <= 0) {
-                    throw new PersonnageMortException("message");
+    public void timeToFight(int positionPlayer, Personnage current) {
+        try {
+            if (evenements.get(positionPlayer) instanceof Ennemi ennemi) {
+                this.fight(current, ennemi);
+            } else if (evenements.get(positionPlayer) instanceof Arme arme) {
+                System.out.println("Vous avez trouvé une arme : " + arme.getNom() + " avec une force de " + arme.getNiveauDeForc());
+                System.out.println("Voulez-vous prendre cette arme ? \n1 Oui \n2 Non");
+                int takeWeaponResponse = scanner.nextInt();
+                if (takeWeaponResponse == 1) {
+                    System.out.println("Vous avez pris l'arme " + arme.getNom() + ".");
+                    System.out.println("Votre nouveau niveau de vie est de : " + current.getNiveauDeVie());
                 }
             }
-        } else if (evenements.get(positionPlayer) instanceof Arme arme) {
-            System.out.println("Vous avez trouvé une arme : " + arme.getNom() + " avec une force de " + arme.getNiveauDeForc());
-            System.out.println("Voulez-vous prendre cette arme ? \n1 Oui \n2 Non");
-            int takeWeaponResponse = scanner.nextInt();
-            if (takeWeaponResponse == 1) {
-                System.out.println("Vous avez pris l'arme " + arme.getNom() + ".");
-                System.out.println("Votre nouveau niveau de vie est de : " + current.getNiveauDeVie());
+
+            else{
+                throw new PersonnageMortException();
             }
+        } catch (PersonnageMortException e) {
+
+                System.out.println(e.getMessage());
         }
     }
 
-
-    public void avancer(int cases) {
-        for (int i = 1; i < cases; i++) {
-            evenements.add(new EmptyCase());
-            System.out.println("Liste vide");
+    private void fight(Personnage current, Ennemi ennemi) {
+        if(ennemi.receiveAttack(current)){
+            System.out.println("Pauvre noob, ,t'as perdu");
+        } else {
+            System.out.println("Bravo, t'as défoncé l'ennemi");
         }
-        System.out.println("vous-étes dans la case : " + cases);
-        action();
     }
 
-    public void action() {
-        Case caseCourante = evenements.get(positionEvenement);
-        caseCourante.action();
-    }
-    public int getPositionEvenement() {
-        return positionEvenement;
-    }
     public Case getCaseAt(int position) {
+        //sup et egal et position infer de lenght
         if (position >= 0 && position < evenements.size()) {
             return evenements.get(position);
         }

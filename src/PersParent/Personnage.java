@@ -1,6 +1,6 @@
 package PersParent;
 
-public abstract class Personnage {
+public abstract class Personnage implements Combattant {
     private String nom;
     private String type;
     private int niveauDeVie;
@@ -67,7 +67,15 @@ public abstract class Personnage {
     }
     public abstract String toString();
 
+    @Override
+    public boolean isAlive() {
+        return this.niveauDeVie>0;
+    }
 
-//    System.out.println(thor.toString());
-
+    @Override
+    public boolean receiveAttack(Combattant fighter) {
+        this.niveauDeVie-= fighter.getForcedattaque();
+        if(this.isAlive()) fighter.receiveAttack(this);
+        return isAlive();
+    }
 }

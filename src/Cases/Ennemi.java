@@ -1,18 +1,16 @@
 package Cases;
 
-public class Ennemi implements Case {
-    private String nom;
-    private int niveauDeForc;
-    private int niveaudeVie = 2;
+import PersParent.Combattant;
 
-    boolean isAlive;
+public class Ennemi implements Case, Combattant {
+    private String nom;
+    private final int niveauDeForc;
+    private int niveaudeVie = 2;
+    private boolean isAlive;
     public Ennemi(String nom ,int niveauDeForc) {
 
         this.nom = nom;
         this.niveauDeForc = niveauDeForc;
-    }
-    public Ennemi(){
-        nom = "abou";
     }
     @Override
     public void action() {
@@ -22,7 +20,6 @@ public class Ennemi implements Case {
     public String toString(){
         return "Vous êtes sur une case ennemi qui est -> "+ nom + "avec un niveau de vie --> " + niveauDeForc;
     }
-
     public String getNom() {
         return nom;
     }
@@ -39,16 +36,24 @@ public class Ennemi implements Case {
         this.nom = nom;
     }
 
-    public void setNiveauDeForc(int niveauDeForc) {
-        this.niveauDeForc = niveauDeForc;
-    }
-
     public void setNiveaudeVie(int niveaudeVie) {
         this.niveaudeVie = niveaudeVie;
     }
 
+    @Override
     public boolean isAlive() {
-        return isAlive;
+        return this.niveaudeVie>0;
+    }
+
+    public boolean receiveAttack(Combattant fighter) {
+        this.niveaudeVie-= fighter.getForcedattaque();
+        if(this.isAlive()) fighter.receiveAttack(this);
+        return isAlive();
+    }
+
+    @Override
+    public int getForcedattaque() {
+        return this.niveauDeForc;
     }
 
     public void setAlive(boolean alive) {

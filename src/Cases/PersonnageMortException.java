@@ -1,8 +1,11 @@
 package Cases;
 
-public class PersonnageMortException extends Exception {
-    public PersonnageMortException(String message) {
 
-        super("vous etes mort");
+public class PersonnageMortException extends Exception {
+    /**
+     * cette exption elle gere la sortie de de du tableaux
+     */
+    public PersonnageMortException() {
+        super("vous avez sortie du plateau ");
     }
 }
